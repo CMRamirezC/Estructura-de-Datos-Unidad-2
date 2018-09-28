@@ -1,0 +1,43 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace _2._1.__Factorial
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.Title = " Calculo de factorial de un numero (n!) ";
+            int numero;
+            DateTime tiempo1 = DateTime.Now;
+            Console.Write(" Introduce el numero para calcular su factorial: ");
+            numero = int.Parse(Console.ReadLine());
+            Console.WriteLine(" El resultado de {0}! con ciclo for es: {1}", numero, FactorialFor(numero));
+            DateTime tiempo2 = DateTime.Now;
+            TimeSpan total = new TimeSpan(tiempo2.Ticks - tiempo1.Ticks);
+            Console.WriteLine(" Tiempo: {0}", total.ToString());
+            Console.WriteLine(" El resultado de {0}! con recursividad es: {1}", numero, FactorialRecursividad(numero));
+
+        }
+        public static int FactorialRecursividad(int num)
+        {
+            if (num == 0)
+            {
+                return 1;
+            }
+            return num * FactorialRecursividad(num - 1);
+        }
+        public static int FactorialFor(int n)
+        {
+            int factorial = 1;
+            for (int cont = 1; cont <= n; cont++)
+            {
+                factorial = factorial * cont;
+            }
+            return factorial;
+        }
+    }
+}
