@@ -1,0 +1,102 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace E2_2.Fibonacci
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            bool condicion = true;
+            do
+            {
+                try
+                {
+                    int num;
+                    Fibonacci fibonacci = new Fibonacci();
+                    Console.Title = " E2-2. Serie Fibonacci ";
+                    Console.Write(" Introduce hasta que posicion de la serie desea ver: ");
+                    num = int.Parse(Console.ReadLine());
+                    Console.Write(" Marca numero segun la opcion (1.Metodo recursivo o 2.Metodo Iterativo): ");
+                    int Opcion = int.Parse(Console.ReadLine());
+                    switch (Opcion)
+                    {
+                        case 1:
+                            Console.WriteLine(" Sucesion con metodo Recursivo: {0}", fibonacci.CalcularFibonacciRecursivo(num));
+                            fibonacci.TiempoEjecucion();
+                            break;
+                        case 2:
+                            Console.WriteLine(" Sucesion con metodo Iterativo: {0}", fibonacci.CalcularFibonacciIterativo(num));
+                            break;
+                        default:
+                            Console.WriteLine(" Error de opcion, vuelve a intentarlo... ");
+                            break;
+                    }
+                    Console.Write(" Desea volver a iniciar el programa? (Si/No): ");
+                    string OpcionCondicion = Console.ReadLine();
+                    switch(OpcionCondicion.ToUpper())
+                    {
+                        case "SI":
+                            condicion = true;
+                            Console.Clear();
+                            break;
+                        case "NO":
+                            condicion = false;
+                            break;
+                        default:
+                            Console.WriteLine(" Error de opcion!!!, precione cualquier tecla para reiniciar el programa... ");
+                            Console.ReadKey();
+                            Console.Clear();
+                            break;
+                    }
+                }catch(Exception e)
+                {
+                    Console.WriteLine(e.Message);
+                }
+            } while (condicion == true);
+        }
+    }
+}
+namespace E2_2.Fibonacci
+{
+    class Fibonacci
+    {
+        public int CalcularFibonacciRecursivo(int n)
+        {
+            if ((n == 0) || (n == 1))
+            {
+                return 1;
+            }
+            return CalcularFibonacciRecursivo(n - 1) + CalcularFibonacciRecursivo(n - 2);
+        }
+        public int CalcularFibonacciIterativo(int n)
+        {
+            int nActual = 0, nInicial = 1, nFinal = 1;
+            if(n == 0 || n == 1)
+            {
+                nActual = 1;
+            }
+            else
+            {
+                for(int i=1; i<n; i++)
+                {
+                    nActual = nInicial + nFinal;
+                    nFinal = nInicial;
+                    nInicial = nActual;
+                }
+            }
+            TiempoEjecucion();
+            return nActual;
+        }
+        public void TiempoEjecucion()
+        {
+            DateTime tiempo1 = DateTime.Now;
+            DateTime tiempo2 = DateTime.Now;
+            TimeSpan total = new TimeSpan(tiempo2.Ticks - tiempo1.Ticks);
+            Console.WriteLine(" Tiempo: {0}", total.ToString());
+        }
+    }
+}
